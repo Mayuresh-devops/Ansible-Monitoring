@@ -1,0 +1,15 @@
+---
+- name: Run node_exporter
+  hosts: node
+  become: true
+  tasks:
+    - name: Download Node exporter script
+      copy:
+        src:  /home/ubuntu/git/node.sh  
+        dest: /home/ubuntu/
+        mode: 0755  
+    - name: Run the Node exporter script
+      command: bash /home/ubuntu/node.sh
+    - name: Run node_exporter
+      command: nohup /home/ubuntu/node_exporter-1.8.2.linux-amd64/node_exporter 
+...
