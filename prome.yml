@@ -1,0 +1,43 @@
+- name: Manage Prometheus
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Download Prometheus script
+      copy:
+        src: /home/ubuntu/git/prometheus.sh  
+        dest: /home/ubuntu/
+        mode: 0755  
+
+    - name: Run the Prometheus script
+      command: bash /home/ubuntu/prometheus.sh
+
+    - name: Ensure prometheus.yml exists
+      lineinfile:
+        path: /etc/prometheus/prometheus.yml
+        line: "your desired configuration here"
+        create: yes
+
+    - name: Ensure prometheus service file exists
+      template:
+        src: prometheus.service.j2
+        dest: /etc/systemd/system/prometheus.service
+
+    - name: Reload systemd daemon
+      systemd:
+        daemon_reload: yes
+
+    - name: Enable prometheus service
+      systemd:
+        name: prometheus
+        enabled: yes
+
+    - name: Start prometheus service
+      systemd:
+        name: prometheus
+        state: started
+
+    - name: Check prometheus service status
+      systemd:
+        name: prometheus
+        state: started
