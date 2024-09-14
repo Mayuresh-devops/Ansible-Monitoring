@@ -1,25 +1,40 @@
 ---
-- name: Run node_exporter
+- name: Manage Grafana
   hosts: webservers
   become: true
   tasks:
+    - name: Ensure /home/ubuntu directory exists
+      file:
+        path: /home/ubuntu
+        state: directory
+
     - name: Download Grafana script
       copy:
-        src:  /root/Ansible-Monitoring/grafana.sh
+        src: /root/Ansible-Monitoring/grafana.sh
         dest: /home/ubuntu/grafana.sh
         mode: '0755'
-      
+
     - name: Run the Grafana script
       command: bash /home/ubuntu/grafana.sh
+      args:
+        chdir: /home/ubuntu/
+      # Ensure the script is idempotent
+      changed_when: false
 
-    - name: Reload systemd
+    - name: Ensure Grafana service is properly configured
       systemd:
-       daemon_reload: yes
+        daemon_reload: yes
+      # Only reload if the service file was updated
+      when: ansible_facts.services['grafana-server'].state == 'loaded'
+
     - name: Start and enable Grafana service
       systemd:
         name: grafana-server
         state: started
         enabled: yes
 
-...
-
+    - name: Verify Grafana service status
+      systemd:
+        name: grafana-server
+        state: started
+        enabled: yes
