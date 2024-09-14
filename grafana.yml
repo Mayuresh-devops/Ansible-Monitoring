@@ -4,17 +4,18 @@
   become: true
   tasks:
     - name: Download Grafana script
-      debug:
-        msg: Copying Grafana script
       copy:
-        src: /home/ubuntu/git/grafana.sh
-        dest: /home/ubuntu/
-        mode: 0755
-
+        src:  /root/Ansible-Monitoring/grafana.sh
+        dest: /home/ubuntu/grafana.sh
+        mode: '0755'
+      
     - name: Run the Grafana script
-      debug:
-        msg: Running Grafana script
       command: bash /home/ubuntu/grafana.sh
-    # - name: Run Grafana
-    #   command: nohup /home/ubuntu/grafana-v11.1.3/bin/grafana-server web
+
+    - name: Ensure Grafana service is running
+      systemd:
+        name: grafana-server
+        state: started
+        enabled: yes
 ...
+

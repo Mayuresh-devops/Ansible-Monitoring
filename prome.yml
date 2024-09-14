@@ -5,7 +5,7 @@
   tasks:
     - name: Download Prometheus script
       copy:
-        src: /home/ubuntu/git/prometheus.sh  
+        src: /root/Ansible-Monitoring/prometheus.sh  
         dest: /home/ubuntu/
         mode: 0755  
 
@@ -15,12 +15,16 @@
     - name: Ensure prometheus.yml exists
       lineinfile:
         path: /etc/prometheus/prometheus.yml
-        line: "your desired configuration here"
+        line: |
+          scrape_configs:
+            - job_name: 'node_exporter'
+              static_configs:
+                - targets: ['3.236.57.236:9100']
         create: yes
 
     - name: Ensure prometheus service file exists
       template:
-        src: prometheus.service.j2
+        src:  /root/Ansible-Monitoring/prometheus.service.j2
         dest: /etc/systemd/system/prometheus.service
 
     - name: Reload systemd daemon

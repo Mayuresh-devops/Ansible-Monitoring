@@ -5,7 +5,7 @@
   tasks:
     - name: Download Node exporter script
       copy:
-        src:  /home/ubuntu/git/node.sh  
+        src:  /root/Ansible-Monitoring/node.sh 
         dest: /home/ubuntu/
         mode: 0755  
     - name: Run the Node exporter script
