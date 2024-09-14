@@ -1,0 +1,11 @@
+[Unit]
+Description=Node Exporter
+After=network.target
+
+[Service]
+User=ubuntu
+ExecStart=/home/ubuntu/node_exporter-1.8.2.linux-amd64/node_exporter
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
