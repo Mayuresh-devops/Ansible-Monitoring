@@ -27,11 +27,11 @@
 
     - name: Start and enable Grafana service
       systemd:
-        name: grafana-server
+        name: grafana
         state: started
         enabled: yes
 
     - name: Verify Grafana service status
-      command: systemctl status grafana-server
+      command: systemctl status grafana
       register: grafana_status
       failed_when: "'active (running)' not in grafana_status.stdout"
