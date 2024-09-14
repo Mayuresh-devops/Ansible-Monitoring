@@ -7,21 +7,28 @@
         path: /home/ubuntu
         state: directory
 
-    - name: Download Node Exporter binary
+    - name: Download Node Exporter tarball
       get_url:
         url: https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
         dest: /home/ubuntu/node_exporter-1.8.2.linux-amd64.tar.gz
         mode: '0644'
-      notify:
-        - Extract Node Exporter
 
-    - name: Ensure Node Exporter script is executable
+    - name: Extract Node Exporter tarball
+      unarchive:
+        src: /home/ubuntu/node_exporter-1.8.2.linux-amd64.tar.gz
+        dest: /home/ubuntu
+        remote_src: yes
+      notify:
+        - Ensure Node Exporter binary permissions
+        - Create Node Exporter systemd service file
+
+    - name: Ensure Node Exporter binary permissions
       file:
         path: /home/ubuntu/node_exporter-1.8.2.linux-amd64/node_exporter
         mode: '0755'
         state: file
 
-    - name: Create a Node Exporter systemd service file
+    - name: Create Node Exporter systemd service file
       template:
         src: node_exporter.service.j2
         dest: /etc/systemd/system/node_exporter.service
@@ -37,11 +44,11 @@
         enabled: yes
 
   handlers:
-    - name: Extract Node Exporter
-      unarchive:
-        src: /home/ubuntu/node_exporter-1.8.2.linux-amd64.tar.gz
-        dest: /home/ubuntu
-        remote_src: yes
+    - name: Ensure Node Exporter binary permissions
+      file:
+        path: /home/ubuntu/node_exporter-1.8.2.linux-amd64/node_exporter
+        mode: '0755'
+        state: file
 
     - name: Reload systemd daemon
       systemd:
