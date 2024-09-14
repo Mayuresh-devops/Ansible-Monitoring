@@ -28,7 +28,7 @@
 
     - name: Copy Grafana systemd service file
       copy:
-        src: /root/Ansible-Monitoring/grafana.service
+        src: tegrafana.service
         dest: /etc/systemd/system/grafana.service
         mode: '0644'
       notify:
