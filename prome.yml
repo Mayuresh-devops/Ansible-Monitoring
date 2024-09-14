@@ -14,7 +14,7 @@
 
     - name: Ensure prometheus.yml configuration is correct
       template:
-        src: prometheus.yml.j2
+        src: /root/Ansible-Monitoring/prometheus.yml.j2
         dest: /etc/prometheus/prometheus.yml
       notify:
         - Restart prometheus
