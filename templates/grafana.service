@@ -1,0 +1,13 @@
+[Unit]
+Description=Grafana
+Documentation=https://grafana.com/docs/grafana/latest/
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+ExecStart=/usr/local/bin/grafana-server --config=/usr/local/grafana/conf/defaults.ini
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
