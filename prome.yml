@@ -41,8 +41,8 @@
         enabled: yes
 
     - name: Reload systemd daemon
-                systemd:
-                daemon_reload: yes
+      systemd:
+        daemon_reload: yes
   handlers:
     - name: Restart prometheus
       systemd:
