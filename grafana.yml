@@ -12,11 +12,6 @@
     - name: Run the Grafana script
       command: bash /home/ubuntu/grafana.sh
 
-    - name: Ensure Grafana service is running
-      systemd:
-        name: grafana-server
-        state: started
-        enabled: yes
     - name: Reload systemd
       systemd:
        daemon_reload: yes
