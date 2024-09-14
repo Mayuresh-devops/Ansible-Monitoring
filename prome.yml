@@ -37,6 +37,14 @@
         - Reload systemd daemon
         - Restart prometheus
 
+    - name: Start Prometheus in background using nohup
+      shell: |
+        nohup /home/ubuntu/prometheus-2.53.1.linux-amd64/prometheus --config.file=/etc/prometheus/prometheus.yml > /var/log/prometheus.log 2>&1 &
+      args:
+        chdir: /home/ubuntu/
+      # Ensure the Prometheus process runs in the background
+      changed_when: false
+
     - name: Reload systemd daemon
       systemd:
         daemon_reload: yes
@@ -46,13 +54,13 @@
         name: prometheus
         state: started
         enabled: yes
-    - name: Reload systemd daemon
-      systemd:
-        daemon_reload: yes
 
+  handlers:
     - name: Restart prometheus
       systemd:
         name: prometheus
         state: restarted
 
-    
+    - name: Reload systemd daemon
+      systemd:
+        daemon_reload: yes
