@@ -21,11 +21,9 @@
       # Ensure the script is idempotent
       changed_when: false
 
-    - name: Ensure Grafana service is properly configured
+    - name: Reload systemd
       systemd:
         daemon_reload: yes
-      # Only reload if the service file was updated
-      when: ansible_facts.services['grafana-server'].state == 'loaded'
 
     - name: Start and enable Grafana service
       systemd:
@@ -34,7 +32,6 @@
         enabled: yes
 
     - name: Verify Grafana service status
-      systemd:
-        name: grafana-server
-        state: started
-        enabled: yes
+      command: systemctl status grafana-server
+      register: grafana_status
+      failed_when: "'active (running)' not in grafana_status.stdout"
