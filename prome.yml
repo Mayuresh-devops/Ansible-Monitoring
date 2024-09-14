@@ -47,6 +47,8 @@
     - name: Reload systemd daemon
       systemd:
         daemon_reload: yes
+      # Ensure this task is conditional to changes
+      when: ansible_facts.services['prometheus'].state != 'running'
 
   handlers:
     - name: Restart prometheus
