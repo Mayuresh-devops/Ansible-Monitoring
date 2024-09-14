@@ -17,6 +17,8 @@
 
     - name: Run the Prometheus script
       command: bash /home/ubuntu/prometheus.sh
+      args:
+        chdir: /home/ubuntu/
 
     - name: Ensure prometheus.yml configuration is correct
       template:
@@ -40,13 +42,12 @@
         state: started
         enabled: yes
 
-    - name: Reload systemd daemon
-      systemd:
-        daemon_reload: yes
   handlers:
     - name: Restart prometheus
       systemd:
         name: prometheus
         state: restarted
 
-   
+    - name: Reload systemd daemon
+      systemd:
+        daemon_reload: yes
