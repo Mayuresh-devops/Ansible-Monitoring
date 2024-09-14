@@ -1,4 +1,3 @@
----
 - name: Manage Grafana
   hosts: webservers
   become: true
@@ -8,18 +7,21 @@
         path: /home/ubuntu
         state: directory
 
-    - name: Download Grafana script
-      copy:
-        src: /root/Ansible-Monitoring/grafana.sh
-        dest: /home/ubuntu/grafana.sh
-        mode: '0755'
+    - name: Download Grafana tarball
+      get_url:
+        url: https://dl.grafana.com/oss/release/grafana-11.1.3.linux-amd64.tar.gz
+        dest: /home/ubuntu/grafana-11.1.3.linux-amd64.tar.gz
 
-    - name: Run the Grafana script
-      command: bash /home/ubuntu/grafana.sh
+    - name: Extract Grafana tarball
+      unarchive:
+        src: /home/ubuntu/grafana-11.1.3.linux-amd64.tar.gz
+        dest: /home/ubuntu/
+        remote_src: yes
+
+    - name: Move Grafana server binary to /usr/local/bin
+      command: cp /home/ubuntu/grafana-11.1.3/bin/grafana-server /usr/local/bin/
       args:
-        chdir: /home/ubuntu/
-      # Ensure the script is idempotent
-      changed_when: false
+        creates: /usr/local/bin/grafana-server
 
     - name: Ensure /etc/systemd/system directory exists
       file:
@@ -34,7 +36,6 @@
       notify:
        - Reload systemd daemon
        - Start and enable Grafana service
-
 
   handlers:
     - name: Reload systemd daemon
