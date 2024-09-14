@@ -28,11 +28,6 @@
         - Reload systemd daemon
         - Restart prometheus
 
-    - name: Reload systemd daemon
-      systemd:
-        daemon_reload: yes
-      when: ansible_facts.services['prometheus'].state != 'running'
-
     - name: Enable and start Prometheus service
       systemd:
         name: prometheus
