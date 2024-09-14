@@ -19,6 +19,8 @@
       command: bash /home/ubuntu/prometheus.sh
       args:
         chdir: /home/ubuntu/
+      # Ensure the script is idempotent
+      changed_when: false
 
     - name: Ensure prometheus.yml configuration is correct
       template:
@@ -36,18 +38,32 @@
         - Reload systemd daemon
         - Restart prometheus
 
-    - name: Enable and start Prometheus service
+    - name: Enable Prometheus service
+      systemd:
+        name: prometheus
+        enabled: yes
+      # Ensure service is enabled regardless of its current state
+      changed_when: false
+
+    - name: Start Prometheus service
       systemd:
         name: prometheus
         state: started
-        enabled: yes
+      # Ensure service is started regardless of its current state
+      changed_when: false
+
     - name: Reload systemd daemon
       systemd:
         daemon_reload: yes
+      # This can be skipped if the service was not changed
+      when: ansible_facts.services['prometheus'].state != 'running'
+
   handlers:
     - name: Restart prometheus
       systemd:
         name: prometheus
         state: restarted
 
-   
+    - name: Reload systemd daemon
+      systemd:
+        daemon_reload: yes
