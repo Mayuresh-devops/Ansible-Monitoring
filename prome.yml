@@ -50,7 +50,6 @@
       systemd:
         daemon_reload: yes
 
-  handlers:
     - name: Restart prometheus
       systemd:
         name: prometheus
