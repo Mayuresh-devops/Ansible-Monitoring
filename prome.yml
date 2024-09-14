@@ -6,42 +6,45 @@
     - name: Download Prometheus script
       copy:
         src: /root/Ansible-Monitoring/prometheus.sh  
-        dest: /home/ubuntu/
-        mode: 0755  
+        dest: /home/ubuntu/prometheus.sh
+        mode: '0755'
 
     - name: Run the Prometheus script
       command: bash /home/ubuntu/prometheus.sh
 
-    - name: Ensure prometheus.yml exists
-      lineinfile:
-        path: /etc/prometheus/prometheus.yml
-        line: |
-          scrape_configs:
-            - job_name: 'node_exporter'
-              static_configs:
-                - targets: ['3.236.57.236:9100']
-        create: yes
-
-    - name: Ensure prometheus service file exists
+    - name: Ensure prometheus.yml configuration is correct
       template:
-        src:  /root/Ansible-Monitoring/prometheus.service.j2
+        src: prometheus.yml.j2
+        dest: /etc/prometheus/prometheus.yml
+      notify:
+        - Restart prometheus
+
+    - name: Ensure Prometheus systemd service file exists
+      template:
+        src: prometheus.service.j2
         dest: /etc/systemd/system/prometheus.service
+        mode: '0644'
+      notify:
+        - Reload systemd daemon
+        - Restart prometheus
 
     - name: Reload systemd daemon
       systemd:
         daemon_reload: yes
+      when: ansible_facts.services['prometheus'].state != 'running'
 
-    - name: Enable prometheus service
+    - name: Enable and start Prometheus service
       systemd:
         name: prometheus
+        state: started
         enabled: yes
 
-    - name: Start prometheus service
+  handlers:
+    - name: Restart prometheus
       systemd:
         name: prometheus
-        state: started
+        state: restarted
 
-    - name: Check prometheus service status
+    - name: Reload systemd daemon
       systemd:
-        name: prometheus
-        state: started
+        daemon_reload: yes
