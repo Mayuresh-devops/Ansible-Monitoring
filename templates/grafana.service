@@ -6,7 +6,7 @@ After=network.target
 [Service]
 Type=simple
 User=ubuntu
-ExecStart=/usr/local/bin/grafana-server --config=/usr/local/grafana/conf/defaults.ini
+ExecStart=/home/ubuntu/grafana-v11.1.3/bin/grafana-server --config=/home/ubuntu/grafana-v11.1.3/conf/defaults.ini
 Restart=always
 
 [Install]
