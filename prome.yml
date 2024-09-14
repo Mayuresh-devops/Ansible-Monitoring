@@ -20,14 +20,14 @@
 
     - name: Ensure prometheus.yml configuration is correct
       template:
-        src: /root/Ansible-Monitoring/prometheus.yml.j2
+        src: templates/prometheus.yml.j2
         dest: /etc/prometheus/prometheus.yml
       notify:
         - Restart prometheus
 
     - name: Ensure Prometheus systemd service file exists
       template:
-        src: /root/Ansible-Monitoring/prometheus.service.j2
+        src: templates/prometheus.service.j2
         dest: /etc/systemd/system/prometheus.service
         mode: '0644'
       notify:
