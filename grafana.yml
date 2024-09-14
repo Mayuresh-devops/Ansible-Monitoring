@@ -17,6 +17,17 @@
         src: /home/ubuntu/grafana-11.1.3.linux-amd64.tar.gz
         dest: /home/ubuntu/
         remote_src: yes
+        extra_opts:
+          - --strip-components=1  # Use this if the tarball contains an extra top-level directory
+
+    - name: List contents of /home/ubuntu for debugging
+      command: ls -l /home/ubuntu/grafana-11.1.3/bin/
+      register: grafana_bin_contents
+      failed_when: false
+
+    - name: Print contents of grafana bin directory
+      debug:
+        msg: "{{ grafana_bin_contents.stdout }}"
 
     - name: Move Grafana server binary to /usr/local/bin
       command: cp /home/ubuntu/grafana-11.1.3/bin/grafana-server /usr/local/bin/
@@ -40,7 +51,7 @@
   handlers:
     - name: Reload systemd daemon
       systemd:
-        daemon_reload: yesx
+        daemon_reload: yes
 
     - name: Start and enable Grafana service
       systemd:
