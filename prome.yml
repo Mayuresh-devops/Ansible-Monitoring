@@ -38,25 +38,15 @@
         - Reload systemd daemon
         - Restart prometheus
 
-    - name: Enable Prometheus service
-      systemd:
-        name: prometheus
-        enabled: yes
-      # Ensure service is enabled regardless of its current state
-      changed_when: false
-
-    - name: Start Prometheus service
+    - name: Enable and start Prometheus service
       systemd:
         name: prometheus
         state: started
-      # Ensure service is started regardless of its current state
-      changed_when: false
+        enabled: yes
 
     - name: Reload systemd daemon
       systemd:
         daemon_reload: yes
-      # Run this task unconditionally; no need for conditional checks
-      # Remove the conditional check that was causing issues
 
   handlers:
     - name: Restart prometheus
@@ -64,3 +54,6 @@
         name: prometheus
         state: restarted
 
+    - name: Reload systemd daemon
+      systemd:
+        daemon_reload: yes
