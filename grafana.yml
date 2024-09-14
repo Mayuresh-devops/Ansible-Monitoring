@@ -21,7 +21,22 @@
       # Ensure the script is idempotent
       changed_when: false
 
-    - name: Reload systemd
+    - name: Ensure /etc/systemd/system directory exists
+      file:
+        path: /etc/systemd/system
+        state: directory
+
+    - name: Copy Grafana systemd service file
+      copy:
+        src: /root/Ansible-Monitoring/grafana.service
+        dest: /etc/systemd/system/grafana.service
+        mode: '0644'
+      notify:
+        - Reload systemd daemon
+        - Start and enable Grafana service
+
+  handlers:
+    - name: Reload systemd daemon
       systemd:
         daemon_reload: yes
 
@@ -30,8 +45,3 @@
         name: grafana
         state: started
         enabled: yes
-
-    - name: Verify Grafana service status
-      command: systemctl status grafana
-      register: grafana_status
-      failed_when: "'active (running)' not in grafana_status.stdout"
