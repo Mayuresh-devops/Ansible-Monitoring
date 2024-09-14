@@ -27,13 +27,13 @@
         state: directory
 
     - name: Copy Grafana systemd service file
-    copy:
-      src: templates/grafana.service
-      dest: /etc/systemd/system/grafana.service
-      mode: '0644'
-    notify:
-      - Reload systemd daemon
-      - Start and enable Grafana service
+      copy:
+        src: templates/grafana.service
+        dest: /etc/systemd/system/grafana.service
+        mode: '0644'
+      notify:
+       - Reload systemd daemon
+       - Start and enable Grafana service
 
 
   handlers:
