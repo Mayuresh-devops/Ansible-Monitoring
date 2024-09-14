@@ -53,6 +53,4 @@
         name: prometheus
         state: restarted
 
-    - name: Reload systemd daemon
-      systemd:
-        daemon_reload: yes
+    
