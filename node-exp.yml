@@ -1,15 +1,44 @@
----
-- name: Run node_exporter
+- name: Run Node Exporter
   hosts: node
   become: true
   tasks:
-    - name: Download Node exporter script
+    - name: Download Node Exporter script
       copy:
-        src:  /root/Ansible-Monitoring/node.sh 
-        dest: /home/ubuntu/
-        mode: 0755  
-    - name: Run the Node exporter script
+        src: /root/Ansible-Monitoring/node.sh
+        dest: /home/ubuntu/node.sh
+        mode: '0755'
+
+    - name: Run the Node Exporter script
       command: bash /home/ubuntu/node.sh
-    - name: Run node_exporter
-      command: nohup /home/ubuntu/node_exporter-1.8.2.linux-amd64/node_exporter 
-...
+
+    - name: Ensure Node Exporter binary is executable
+      file:
+        path: /home/ubuntu/node_exporter-1.8.2.linux-amd64/node_exporter
+        mode: '0755'
+
+    - name: Create a Node Exporter systemd service file
+      copy:
+        dest: /etc/systemd/system/node_exporter.service
+        content: |
+          [Unit]
+          Description=Node Exporter
+          After=network.target
+
+          [Service]
+          User=ubuntu
+          ExecStart=/home/ubuntu/node_exporter-1.8.2.linux-amd64/node_exporter
+          Restart=always
+
+          [Install]
+          WantedBy=multi-user.target
+        mode: '0644'
+
+    - name: Reload systemd to recognize new service
+      systemd:
+        daemon_reload: yes
+
+    - name: Start and enable Node Exporter service
+      systemd:
+        name: node_exporter
+        state: started
+        enabled: yes
