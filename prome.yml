@@ -55,8 +55,8 @@
     - name: Reload systemd daemon
       systemd:
         daemon_reload: yes
-      # This can be skipped if the service was not changed
-      when: ansible_facts.services['prometheus'].state != 'running'
+      # Run this task unconditionally; no need for conditional checks
+      # Remove the conditional check that was causing issues
 
   handlers:
     - name: Restart prometheus
