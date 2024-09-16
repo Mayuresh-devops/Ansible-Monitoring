@@ -64,8 +64,7 @@
         chdir: /home/ubuntu/
       # Ensure the Grafana process runs in the background
       changed_when: false
-
-
+    
   handlers:
     - name: Reload systemd daemon
       systemd:
