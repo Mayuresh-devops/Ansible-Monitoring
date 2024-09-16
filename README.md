@@ -8,4 +8,5 @@ This repository contains Ansible playbooks to automate the provisioning and conf
 
    ansible-config init --disabled -t all > ansible.cfg
 
-3. Copy hosts file from /etc/ansible to the repo
+3. Copy hosts file from /etc/ansible to the repo dir
+4. Edit hosts file and
