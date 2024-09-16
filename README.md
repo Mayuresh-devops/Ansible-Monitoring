@@ -18,7 +18,7 @@ This repository contains Ansible playbooks to automate the provisioning and conf
 6. Edit configuration file path(edit this at line no 19)
 
    ```
-
+   home=/home/ubuntu/Ansible-monitoring/
    ```
 
    home=/home/ubuntu/Ansible-monitoring/
