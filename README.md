@@ -6,6 +6,6 @@ This repository contains Ansible playbooks to automate the provisioning and conf
 
 2) Run following command as root user
 
-    ansible-config init --disabled -t all > ansible.cfg
+   ansible-config init --disabled -t all > ansible.cfg
 
-2,
+3.
