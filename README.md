@@ -8,4 +8,4 @@ This repository contains Ansible playbooks to automate the provisioning and conf
 
     ansible-config init --disabled -t all > ansible.cfg
 
-3.
+2,
