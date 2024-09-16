@@ -25,7 +25,7 @@ This repository contains Ansible playbooks to automate the provisioning and conf
 7. Edit host file path (Edit this at line no 137)
 
    ```
-   inventory=/home/ubuntu/Ansinle-monitoring/hosts
+   inventory=/home/ubuntu/Ansible-Monitoring/hosts
    ```
 8. Edit private key file path (Edit at line no 209)
 
