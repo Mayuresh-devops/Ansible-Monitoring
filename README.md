@@ -12,4 +12,5 @@ This repository contains Ansible playbooks to automate the provisioning and conf
 4. Edit hosts file and add your hosts in hosts file
    [webserver]
    `<IP-monitoring server>`
-5.
+   [node]
+   <>
