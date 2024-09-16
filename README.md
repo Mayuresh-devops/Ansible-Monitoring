@@ -14,4 +14,4 @@ This repository contains Ansible playbooks to automate the provisioning and conf
    `<IP-monitoring server>`
    [node]
    `<IP-node servers>`
-5. edit ansible.cfg file and specify path of host file and your configuration
+5. edit ansible.cfg file and specify path of host file and your configuration file
