@@ -4,7 +4,7 @@ This repository contains Ansible playbooks to automate the provisioning and conf
 
 1. Clone Repo
 
-2) Run following command as root user into Ansible-monitoring dir
+2) Run following command as root user into Ansible-monitoring dir.
 
    ansible-config init --disabled -t all > ansible.cfg
 
