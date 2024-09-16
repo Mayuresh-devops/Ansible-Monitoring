@@ -15,3 +15,5 @@ This repository contains Ansible playbooks to automate the provisioning and conf
    [node]
    `<IP-node servers>`
 5. edit ansible.cfg file and specify path of host file and your configuration file
+
+home=/home/ubuntu/Ansible-monitoring/
