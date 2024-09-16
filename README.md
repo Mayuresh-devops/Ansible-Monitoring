@@ -12,7 +12,7 @@ This repository contains Ansible playbooks to automate the provisioning and conf
 
 3. Copy hosts file from /etc/ansible to the repo dir
 4. Edit hosts file and add your hosts in hosts file
-   [webserver]
+   i. [webserver]
    `<IP-monitoring server>`
    [node]
    `<IP-node servers>`
