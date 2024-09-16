@@ -56,7 +56,8 @@
       notify:
        - Reload systemd daemon
        - Start and enable Grafana service
-       - name: Start Grafana in background using nohup
+       
+    - name: Start Grafana in background using nohup
         shell: |
           nohup /home/ubuntu/grafana-9.6.3/linux-amd64/grafana-server --config=/etc/grafana/grafana.ini > /var/log/grafana.log 2>&1 &
         args:
