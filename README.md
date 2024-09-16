@@ -13,4 +13,5 @@ This repository contains Ansible playbooks to automate the provisioning and conf
    [webserver]
    `<IP-monitoring server>`
    [node]
-   <>
+   `<IP-node servers>`
+5.
