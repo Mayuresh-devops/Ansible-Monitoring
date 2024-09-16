@@ -24,4 +24,3 @@ This repository contains Ansible playbooks to automate the provisioning and conf
 8. Edit private key file path (Edit at line no 209)
 
    private_key_file=/home/ubuntu/Ansible-monitoring/id_rsa
-9.
