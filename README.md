@@ -4,6 +4,6 @@ This repository contains Ansible playbooks to automate the provisioning and conf
 
 1)Clone Repo
 
-2
+2) Run
 
 ansible-config init --disabled -t all > ansible.cfg
