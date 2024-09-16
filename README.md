@@ -10,23 +10,23 @@ This repository contains Ansible playbooks to automate the provisioning and conf
    ansible-config init --disabled -t all > ansible.cfg
    ```
 
-* Copy hosts file from /etc/ansible to the repo dir
-* Edit hosts file and add your hosts in hosts file
-  i. [webserver]
-  `<IP-monitoring server>`
-  ii. [node]
-  `<IP-node servers>`
-* edit ansible.cfg file and specify path of host file and your configuration file
-* Edit configuration file path(edit this at line no 19)
+3. Copy hosts file from /etc/ansible to the repo dir
+4. Edit hosts file and add your hosts in hosts file
+   i. [webserver]
+   `<IP-monitoring server>`
+   ii. [node]
+   `<IP-node servers>`
+5. edit ansible.cfg file and specify path of host file and your configuration file
+6. Edit configuration file path(edit this at line no 19)
 
-  ```
-  home=/home/ubuntu/Ansible-monitoring/
-  ```
-* Edit host file path (Edit this at line no 137)
+   ```
+   home=/home/ubuntu/Ansible-monitoring/
+   ```
+7. Edit host file path (Edit this at line no 137)
 
-  ```
-  inventory=/home/ubuntu/Ansinle-monitoring/hosts
-  ```
-* Edit private key file path (Edit at line no 209)
+   ```
+   inventory=/home/ubuntu/Ansinle-monitoring/hosts
+   ```
+8. Edit private key file path (Edit at line no 209)
 
-  private_key_file=/home/ubuntu/Ansible-monitoring/id_rsa
+   private_key_file=/home/ubuntu/Ansible-monitoring/id_rsa
