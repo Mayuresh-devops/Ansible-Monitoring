@@ -6,8 +6,6 @@ This repository contains Ansible playbooks to automate the provisioning and conf
 
 2) Run following command as root user into Ansible-monitoring dir.
 
-   ansible-config init --disabled -t all > ansible.cfg
-
 3. Copy hosts file from /etc/ansible to the repo dir
 4. Edit hosts file and add your hosts in hosts file
    [webserver]
@@ -23,7 +21,7 @@ This repository contains Ansible playbooks to automate the provisioning and conf
 7. Edit host file path (Edit this at line no 137)
 
    ```
-
+   inventory=/home/ubuntu/Ansinle-monitoring/hosts
    ```
 8. Edit private key file path (Edit at line no 209)
 
