@@ -39,7 +39,7 @@
         msg: "grafana-server file exists: {{ grafana_server_stat.stat.exists }}"
 
     - name: Move Grafana server binary to /usr/local/bin
-      command: cp /home/ubuntu/grafana-11.1.3/bin/grafana-server /usr/local/bin/
+      command: cp /home/ubuntu/bin/grafana-server /usr/local/bin/
       args:
         creates: /usr/local/bin/grafana-server
 
