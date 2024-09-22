@@ -11,7 +11,7 @@
 
     - name: Download Prometheus script
       copy:
-        src: /home/ubuntu/Ansible-Monitoring/prometheus.sh  
+        src: prometheus.sh  
         dest: /home/ubuntu/prometheus.sh
         mode: '0755'
 
