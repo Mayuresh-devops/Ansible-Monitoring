@@ -72,7 +72,7 @@
       debug:
         msg: "Grafana service is running: {{ grafana_service_status.status == 'running' }}"
 
-  handlers:
-    - name: Reload systemd daemon
-      systemd:
-        daemon_reload: yes
+  # handlers:
+  #   - name: Reload systemd daemon
+  #     systemd:
+  #       daemon_reload: yes
