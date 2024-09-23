@@ -6,7 +6,7 @@ After=network.target
 [Service]
 Type=simple
 User=root
-ExecStart=/home/ubuntu/grafana-server --config=/home/ubuntu/conf/defaults.ini
+ExecStart=/home/ubuntu/bin/grafana-server --config=/home/ubuntu/conf/defaults.ini
 Restart=always
 WorkingDirectory=/home/ubuntu/grafana-11.1.3
 StandardOutput=file:/var/log/grafana.log
