@@ -8,7 +8,7 @@ Type=simple
 User=root
 ExecStart=/home/ubuntu/bin/grafana-server --config=/home/ubuntu/conf/defaults.ini
 Restart=always
-WorkingDirectory=/home/ubuntu/grafana-11.1.3
+WorkingDirectory=/home/ubuntu/bin
 StandardOutput=file:/var/log/grafana.log
 StandardError=file:/var/log/grafana-error.log
 
